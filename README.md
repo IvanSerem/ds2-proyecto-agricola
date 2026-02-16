@@ -55,7 +55,6 @@ Analizar eventos climáticos ocurridos en Argentina entre 2014 y 2023 y detectar
 
 El notebook puede ejecutarse en:
 - Google Colab
-- Kaggle
 - Entorno local Python 3.x
 
 Dependencias principales:
