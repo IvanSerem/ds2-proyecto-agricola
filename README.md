@@ -1,6 +1,8 @@
 # 🌾 DS2 – Proyecto Agrícola  
 ## Contextualización Climática del Rendimiento Agrícola en Argentina (2014–2023)
 
+https://github.com/IvanSerem/ds2-proyecto-agricola/blob/main/DCII_IvanSeremczuk_PrimeraEntrega.py
+
 Proyecto desarrollado para la cursada de **Data Science II**, enfocado en el análisis de eventos climáticos reales y su posible impacto en el rendimiento agrícola provincial.
 
 ---
