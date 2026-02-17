@@ -111,6 +111,6 @@ Dependencias principales:
 
 # 👤 Autor
 
-Iván Serem  
-Proyecto académico – Data Science II  
+Iván Seremczuk - Comisión 77750 - Data Science II - Coderhouse 2026  
+
 
