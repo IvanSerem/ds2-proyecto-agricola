@@ -1,62 +1,99 @@
-# DS2 – Proyecto Agrícola - PRIMERA ENTREGA  
-## Análisis Climático y Contextualización del Rendimiento Agrícola en Argentina (2014–2023)
+# 🌾 DS2 – Proyecto Agrícola  
+## Contextualización Climática del Rendimiento Agrícola en Argentina (2014–2023)
 
-https://github.com/IvanSerem/ds2-proyecto-agricola/blob/main/DCII_IvanSeremczuk_PrimeraEntrega.py
-
-## 📌 Descripción
-
-Este proyecto forma parte de la cursada de Data Science II y tiene como objetivo analizar datos climáticos reales de Argentina para comprender su posible impacto en el rendimiento agrícola.
-
-En la etapa anterior (Data Science I), se desarrolló un modelo predictivo agrícola con alto desempeño (R² ≈ 0.97) utilizando variables de suelo y clima.  
-En esta segunda etapa, el enfoque se orienta a estudiar el comportamiento climático real por provincia y su estructura temporal.
+Proyecto desarrollado para la cursada de **Data Science II**, enfocado en el análisis de eventos climáticos reales y su posible impacto en el rendimiento agrícola provincial.
 
 ---
 
-## 🎯 Objetivo
+# 📌 1. Abstracto
 
-Analizar eventos climáticos ocurridos en Argentina entre 2014 y 2023 y detectar patrones provinciales relevantes para el contexto productivo agrícola.
+En la primera etapa del proyecto (Data Science I) se construyó un modelo predictivo agrícola capaz de estimar el rendimiento de cultivos a partir de variables de suelo y clima, alcanzando métricas de alto desempeño (R² ≈ 0.97).
+
+En esta segunda etapa, el enfoque evoluciona hacia la comprensión del contexto climático real en el que esos rendimientos ocurren.
+
+El objetivo es analizar datos climáticos oficiales de Argentina (2014–2023) para identificar patrones provinciales, estructuras temporales de precipitación y perfiles climáticos diferenciados que puedan influir en la estabilidad productiva.
+
+Este análisis puede resultar útil para:
+- Productores agrícolas
+- Analistas del sector agroindustrial
+- Profesionales en planificación productiva
+- Estudiantes de ciencia de datos aplicada al agro
 
 ---
 
-## 🌎 Fuente de Datos
+# 📊 2. Resumen de Metadata
 
-- API oficial NASA POWER
+Fuente: API oficial **NASA POWER**
+
+Características del dataset:
 - 83.996 registros diarios
-- 23 provincias
+- 23 provincias argentinas
 - Período: 2014–2023
 - Variables analizadas:
-  - Temperatura media (T2M)
-  - Precipitación (PRECTOTCORR)
+  - Temperatura media diaria (T2M)
+  - Precipitación diaria (PRECTOTCORR)
   - Velocidad del viento (WS2M)
   - Humedad relativa (RH2M)
 
+Tipo de variables:
+- Numéricas continuas
+- Datos diarios agregados posteriormente a nivel provincial
+
 ---
 
-## 📊 Análisis Realizado
+# ❓ 3. Preguntas / Hipótesis de Investigación
 
-- Análisis univariado y bivariado
-- Distribución de precipitación diaria
-- Frecuencia de días sin lluvia
+## Temperatura
+- ¿Cuáles son las provincias con mayor temperatura media anual?
+- ¿Existe relación entre temperatura media anual y precipitación total?
+
+## Precipitación
+- ¿Qué provincias presentan mayor precipitación acumulada?
+- ¿Cómo se distribuye la precipitación diaria?
+- ¿La lluvia se concentra en eventos intensos o se distribuye de forma uniforme?
+- ¿Qué provincias presentan mayor cantidad de rachas de lluvia?
+- ¿Cuál es la frecuencia de días sin precipitaciones?
+
+## Humedad
+- ¿Cuáles son las provincias con mayor humedad relativa promedio?
+- ¿Existe relación entre humedad y precipitación anual?
+
+## Viento
+- ¿Qué provincias presentan mayor porcentaje de días con viento intenso?
+
+## Análisis Multivariable
+- ¿Existen agrupamientos naturales de provincias según su comportamiento climático?
+- ¿Qué relaciones estructurales se observan entre temperatura, precipitación, viento y humedad?
+
+---
+
+# 📈 4. Análisis Realizado
+
+- Limpieza y transformación de datos
+- Análisis exploratorio (EDA)
+- Distribución de variables climáticas
 - Estudio de rachas de lluvia
-- Análisis de correlaciones
+- Análisis de correlación
 - Clustering climático provincial (KMeans)
-- Visualizaciones interactivas
+- Visualizaciones interactivas y comparativas
 
 ---
 
-## 🔍 Principales Hallazgos
+# 🔎 5. Insights Principales
 
-- Existen perfiles climáticos diferenciados entre provincias.
-- La estructura temporal de la lluvia (rachas) es más relevante productivamente que el acumulado anual.
+- El territorio argentino presenta perfiles climáticos diferenciados a nivel provincial.
+- La estructura temporal de la lluvia (frecuencia y rachas) es más relevante productivamente que el acumulado anual.
 - Se identificaron agrupamientos naturales de provincias con características climáticas similares.
-- La variabilidad climática provincial puede influir en la estabilidad del rendimiento agrícola.
+- Las diferencias regionales pueden influir en la estabilidad del rendimiento agrícola incluso bajo condiciones de suelo favorables.
 
 ---
 
-## ⚙️ Reproducibilidad
+# ⚙️ 6. Reproducibilidad
 
-El notebook puede ejecutarse en:
+El proyecto puede ejecutarse en:
+
 - Google Colab
+- Kaggle
 - Entorno local Python 3.x
 
 Dependencias principales:
@@ -70,7 +107,8 @@ Dependencias principales:
 
 ---
 
-## 👤 Autor
+# 👤 Autor
 
 Iván Serem  
-Proyecto académico – Data Science II
+Proyecto académico – Data Science II  
+
