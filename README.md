@@ -3,21 +3,21 @@
 
 Proyecto desarrollado para la cursada de **Data Science II** en Coderhouse, enfocado en el análisis de datos climáticos reales de Argentina y en la construcción de un modelo de Machine Learning capaz de estimar la precipitación a partir de variables meteorológicas, geográficas y temporales.
 
-🔗 Archivo base del proyecto:  
-[DCII_IvanSeremczuk_PrimeraEntrega.py](https://github.com/IvanSerem/ds2-proyecto-agricola/blob/main/DCII_IvanSeremczuk_PrimeraEntrega.py)
+🔗 **Demo interactiva en Hugging Face Spaces:**  
+*(agregar aquí tu link del Space)*
 
 ---
 
 ## 📌 1. Abstracto
 
-En una primera etapa del recorrido formativo, se había trabajado sobre un problema agrícola estructurado: la predicción del rendimiento de cultivos a partir de variables de suelo y clima. Ese enfoque permitió construir un modelo de alto desempeño para un entorno relativamente controlado.
+En una primera etapa del recorrido formativo, se había trabajado sobre un problema agrícola más estructurado: la predicción del rendimiento de cultivos a partir de variables de suelo y clima. Ese enfoque permitió construir un modelo de alto desempeño para un entorno relativamente controlado.
 
-En esta segunda etapa, el proyecto evolucionó hacia un problema más realista y desafiante: **comprender el comportamiento climático real de Argentina y modelar la precipitación a partir de datos observados históricamente**.
+En esta segunda etapa, el proyecto evolucionó hacia un problema más realista y desafiante: **comprender el comportamiento climático real de Argentina y modelar la precipitación a partir de datos históricos observados**.
 
-El trabajo parte de datos oficiales obtenidos desde la API de **NASA POWER** para el período **2014–2023**, y se desarrolla en dos planos complementarios:
+El trabajo parte de datos obtenidos desde la API de **NASA POWER** para el período **2014–2023**, y se desarrolla en dos planos complementarios:
 
 - por un lado, una **contextualización climática provincial**, orientada a describir patrones regionales, estacionalidad, frecuencia de lluvias y diferencias estructurales entre provincias;
-- por otro, una **fase de Machine Learning**, centrada en el entrenamiento, validación, optimización y despliegue de un modelo de regresión para estimar precipitación.
+- por otro, una **fase de Machine Learning**, centrada en el entrenamiento, validación, comparación, optimización y despliegue de un modelo de regresión para estimar precipitación.
 
 Este proyecto puede resultar útil para:
 
@@ -38,7 +38,8 @@ En términos prácticos, se buscó:
 - validar y preparar un dataset climático real,
 - identificar drivers relevantes del fenómeno,
 - entrenar y comparar distintos modelos de regresión,
-- reducir el sobreajuste mediante optimización,
+- evaluar overfitting y capacidad de generalización,
+- optimizar hiperparámetros como parte del proceso metodológico,
 - interpretar mejor la estructura interna de los datos,
 - y transformar el modelo final en una herramienta interactiva de uso práctico.
 
@@ -56,22 +57,22 @@ En términos prácticos, se buscó:
 
 ### Variables originales analizadas
 
-- **Temperatura media diaria** (`T2M`)
-- **Temperatura máxima diaria** (`T2M_MAX`)
-- **Temperatura mínima diaria** (`T2M_MIN`)
-- **Precipitación diaria** (`PRECTOTCORR`)
-- **Velocidad del viento** (`WS2M`)
-- **Humedad relativa** (`RH2M`)
+- **Temperatura media diaria** (`temp_media`)
+- **Temperatura máxima diaria** (`temp_max`)
+- **Temperatura mínima diaria** (`temp_min`)
+- **Precipitación diaria** (`precipitacion`)
+- **Velocidad del viento** (`vel_viento`)
+- **Humedad relativa** (`humedad`)
 - **Fecha**
 - **Provincia**
 - **Latitud / Longitud**
 
 ### Tipo de datos
 
-- Numéricos continuos
-- Variables temporales
-- Variable categórica (`provincia`)
-- Variables booleanas derivadas en etapas iniciales del análisis
+- numéricos continuos,
+- variables temporales,
+- variable categórica (`provincia`),
+- variables derivadas creadas durante la ingeniería de atributos.
 
 ---
 
@@ -203,13 +204,13 @@ Se entrenaron y compararon tres modelos de regresión:
 
 Se evaluó el desempeño del mejor modelo comparando métricas entre train y test.
 
-El análisis mostró una diferencia marcada entre entrenamiento y prueba, evidenciando que el modelo **Random Forest** presentaba señales claras de **overfitting**, incluso después de incorporar variables sintéticas.
+El análisis mostró una diferencia entre entrenamiento y prueba, evidenciando que el modelo **Random Forest** presentaba señales de **overfitting**, incluso después de incorporar variables sintéticas.
 
 ---
 
 ### 5.8 Optimización de hiperparámetros
 
-Se utilizó **RandomizedSearchCV** para mejorar la configuración del modelo Random Forest.
+Se utilizó **RandomizedSearchCV** para explorar configuraciones alternativas del modelo Random Forest.
 
 #### Mejores hiperparámetros encontrados
 
@@ -219,18 +220,20 @@ Se utilizó **RandomizedSearchCV** para mejorar la configuración del modelo Ran
 - `min_samples_leaf = 1`
 - `max_features = "sqrt"`
 
-Esto permitió obtener una versión más controlada del modelo, reduciendo parte de la complejidad sin perder su ventaja comparativa.
+Esta etapa permitió analizar una versión más controlada del modelo y evaluar si una configuración ajustada podía mejorar la generalización.
 
 ---
 
 ### 5.9 Validación cruzada
 
-Se aplicó **validación cruzada de 5 folds** sobre el modelo optimizado.
+Se aplicó **validación cruzada de 5 folds** sobre los modelos seleccionados y luego sobre la variante optimizada de Random Forest.
 
-#### Resultado
+#### Resultado del modelo base
 
-- **R² promedio ≈ 0.3314**
-- folds entre **0.300 y 0.380**
+- **R² promedio ≈ 0.3429**
+- **Desvío estándar ≈ 0.0149**
+- **MAE promedio ≈ 2.1692**
+- **RMSE promedio ≈ 6.7717**
 
 Esto mostró que el modelo tiene un comportamiento relativamente estable, aunque con una capacidad explicativa todavía moderada, coherente con la complejidad del fenómeno.
 
@@ -242,37 +245,41 @@ Se aplicó **PCA (Principal Component Analysis)** para comprender mejor la estru
 
 #### Hallazgos principales
 
-- **PC1** explicó ≈ **39,35%** de la varianza
-- **PC2** explicó ≈ **20,98%**
-- entre ambos resumieron ≈ **60,33%** de la variabilidad
-- con 4 componentes se superó el **81%**
-- con 5 componentes se llegó cerca del **90%**
-
-Además, el PCA confirmó que las variables sintéticas tenían peso real dentro de la estructura del problema, especialmente en los primeros componentes.
+- **PC1** explicó una parte importante de la varianza total.
+- **PC2** aportó una segunda dimensión relevante de variabilidad.
+- Los primeros componentes lograron resumir una proporción alta de la estructura del dataset.
+- Las variables sintéticas mostraron peso real dentro del sistema y no funcionaron como un agregado decorativo.
 
 ---
 
 ## 🤖 6. Modelo final seleccionado
 
-### **Random Forest Regressor Optimizado**
+### **Random Forest Regressor base**
 
-Fue el modelo que mostró el mejor desempeño general entre los tres enfoques evaluados.
+Entre los modelos evaluados, el enfoque con mejor desempeño general fue **Random Forest Regressor**.
+
+Como parte del proceso metodológico, este modelo también fue optimizado mediante **RandomizedSearchCV**. Sin embargo, al comparar la versión optimizada contra la versión base en el conjunto de prueba, se observó que la **versión base** obtuvo mejores resultados finales.
+
+Por este motivo, el análisis del modelo optimizado se conserva como parte del recorrido experimental del proyecto, pero el **modelo final seleccionado** es el **Random Forest Regressor base**, por haber mostrado mejor capacidad de generalización sobre datos no vistos.
 
 ### Métricas más relevantes
 
-#### En test
+#### En test (modelo final seleccionado)
 
-- **R² ≈ 0.4663**
-- **MAE ≈ 2.0204**
-- **RMSE ≈ 5.6697**
+- **R² ≈ 0.4601**
+- **MAE ≈ 2.0294**
+- **RMSE ≈ 5.7024**
 
 #### En validación cruzada
 
-- **R² promedio ≈ 0.3314**
+- **R² promedio ≈ 0.3429**
+- **Desvío estándar ≈ 0.0149**
+- **MAE promedio ≈ 2.1692**
+- **RMSE promedio ≈ 6.7717**
 
 ### Interpretación
 
-El modelo logra capturar aproximadamente entre un **33% y un 47%** de la variabilidad de la precipitación, según el esquema de evaluación considerado.
+El modelo logra capturar una parte moderada de la variabilidad de la precipitación.
 
 Esto **no** debe interpretarse como un “porcentaje de aciertos”, sino como una **capacidad explicativa moderada** dentro de un problema de regresión. En otras palabras, el modelo consigue aprender parte de la lógica histórica del fenómeno, aunque no su totalidad.
 
@@ -297,6 +304,12 @@ Se desarrolló una función predictiva que permite ingresar nuevas condiciones c
 
 A partir de esos inputs, el sistema genera automáticamente las variables sintéticas necesarias y devuelve una predicción de precipitación.
 
+### Observación
+
+La prueba práctica se ejecutó correctamente utilizando el **Random Forest base**, seleccionado como modelo final del proyecto. Para el escenario evaluado, el modelo devolvió una predicción de aproximadamente **0.083 mm**, lo que sugiere una precipitación prácticamente nula o apenas mínima bajo esas condiciones.
+
+Además, se verificó la consistencia entre la predicción obtenida en **Colab** y la generada en el despliegue de **Hugging Face**, utilizando exactamente los mismos datos de entrada, el mismo modelo exportado y la misma lógica de construcción de variables.
+
 ---
 
 ## 🚀 8. Despliegue interactivo
@@ -311,7 +324,6 @@ La app permite:
 - y explorar de manera práctica el comportamiento del modelo.
 
 🔗 **Probar el modelo en vivo:**  
-**🌧️ Predictor de Precipitación en Argentina**  
 *(agregar aquí tu link de Hugging Face Spaces)*
 
 ---
@@ -321,7 +333,8 @@ La app permite:
 - La precipitación no depende de un solo factor, sino de una combinación entre humedad, temperatura, ubicación y estacionalidad.
 - Las variables sintéticas aportaron valor, aunque no resolvieron por sí solas el problema de generalización.
 - Los modelos lineales resultaron insuficientes para capturar la complejidad del fenómeno.
-- Random Forest fue el mejor modelo, pero aun así mostró limitaciones reales frente a un problema climático naturalmente variable.
+- **Random Forest base** fue el mejor modelo final en términos de generalización.
+- La optimización de hiperparámetros fue útil como parte del proceso, pero no mejoró el desempeño final en test.
 - El PCA confirmó que una parte importante de la estructura del dataset puede resumirse en pocas dimensiones.
 - El despliegue final permitió convertir el modelo en una herramienta práctica y no solo en un experimento de notebook.
 
