@@ -4,7 +4,7 @@
 Proyecto desarrollado para la cursada de **Data Science II** en Coderhouse, enfocado en el análisis de datos climáticos reales de Argentina y en la construcción de un modelo de Machine Learning capaz de estimar la precipitación a partir de variables meteorológicas, geográficas y temporales.
 
 🔗 **Demo interactiva en Hugging Face Spaces:**  
-*(agregar aquí tu link del Space)*
+https://huggingface.co/spaces/IvanSerem/prediccion-precipitacion
 
 ---
 
